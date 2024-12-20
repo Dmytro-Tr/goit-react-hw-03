@@ -9,7 +9,11 @@
   margin: 10px 0;
 }
 
-.text_box {}
+.text {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
 
 .button {
   display: block;
