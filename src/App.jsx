@@ -3,7 +3,6 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactList from "./components/ContactList/ContactList";
 import { nanoid } from "nanoid";
-import { number } from "yup";
 
 const App = () => {
   const testContacts = [
@@ -42,6 +41,10 @@ const App = () => {
     ]);
     actions.resetForm();
   };
+  //Видалення контакта
+  const deleteContact = (id) => {
+    setContacts((prev) => prev.filter((item) => item.id !== id));
+  };
 
   return (
     <div>
@@ -51,7 +54,10 @@ const App = () => {
         value={filterCont}
         onFilter={handleFilteredContacts}
       />
-      <ContactList contacts={filteredContacts} />
+      <ContactList
+        contacts={filteredContacts}
+        deleteContact={deleteContact}
+      />
     </div>
   );
 };

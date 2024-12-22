@@ -1,7 +1,7 @@
 import s from "./contact.module.css";
 import { RiContactsFill, RiPhoneFill } from "react-icons/ri";
 
-const Contact = ({ name, number }) => {
+const Contact = ({ name, number, deleteContact, id }) => {
   return (
     <li className={s.item}>
       <div className={s.text_box}>
@@ -18,7 +18,12 @@ const Contact = ({ name, number }) => {
           <p>{number}</p>
         </div>
       </div>
-      <button className={s.button}>Delete</button>
+      <button
+        className={s.button}
+        onClick={() => deleteContact(id)}
+      >
+        Delete
+      </button>
     </li>
   );
 };

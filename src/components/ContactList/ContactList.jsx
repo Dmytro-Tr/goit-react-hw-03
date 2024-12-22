@@ -1,6 +1,6 @@
 import Contact from "../Contact/Contact";
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, deleteContact }) => {
   return (
     <div>
       <ul>
@@ -11,6 +11,7 @@ const ContactList = ({ contacts }) => {
               id={id}
               name={name}
               number={number}
+              deleteContact={deleteContact}
             />
           );
         })}
