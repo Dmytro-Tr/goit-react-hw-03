@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import ContactForm from "./components/ContactForm/ContactForm";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactList from "./components/ContactList/ContactList";
+import { nanoid } from "nanoid";
+import { number } from "yup";
 
 const App = () => {
   const testContacts = [
@@ -16,29 +18,37 @@ const App = () => {
     return savedContacts ? JSON.parse(savedContacts) : testContacts;
   });
 
-  const [filter, setFilter] = useState("");
-
+  const [filterCont, setFilterCont] = useState("");
+  // збереження даних в локальне сховище кожний раз, коли змінюється стейт contacts
   useEffect(() => {
     if (contacts.length > 0) {
       localStorage.setItem("contacts", JSON.stringify(contacts));
     }
     [contacts];
   });
-
+  // Фільтрований список контактів
   const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
+    contact.name.toLowerCase().includes(filterCont.toLowerCase())
   );
-
+  // Обробник зміни в полі пошуку
   const handleFilteredContacts = (evt) => {
-    setFilter(evt.target.value);
+    setFilterCont(evt.target.value);
+  };
+  //Додавання контакта
+  const addContact = (values, actions) => {
+    setContacts((prevContact) => [
+      ...prevContact,
+      { id: nanoid(), name: values.name, number: values.number },
+    ]);
+    actions.resetForm();
   };
 
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm />
+      <ContactForm addContact={addContact} />
       <SearchBox
-        value={filter}
+        value={filterCont}
         onFilter={handleFilteredContacts}
       />
       <ContactList contacts={filteredContacts} />
