@@ -1,6 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
+import s from "./contactForm.module.css";
 
 const ContactForm = ({ addContact }) => {
   const nameId = useId();
@@ -23,16 +24,18 @@ const ContactForm = ({ addContact }) => {
       onSubmit={addContact}
       validationSchema={feedbackSchema}
     >
-      <Form>
+      <Form className={s.form}>
         <label htmlFor={nameId}>Name: </label>
         <Field
           type="text"
           name="name"
           id={nameId}
+          className={s.input}
         />
         <ErrorMessage
           name="name"
           component="span"
+          className={s.error}
         />
 
         <label htmlFor={numberId}>Number: </label>
@@ -40,13 +43,20 @@ const ContactForm = ({ addContact }) => {
           type="tel"
           name="number"
           id={numberId}
+          className={s.input}
         />
         <ErrorMessage
           name="number"
           component="span"
+          className={s.error}
         />
 
-        <button type="submit">Add contact</button>
+        <button
+          type="submit"
+          className={s.button}
+        >
+          Add contact
+        </button>
       </Form>
     </Formik>
   );
